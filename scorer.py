@@ -277,14 +277,14 @@ MERCHANT_PROFILES = {
         "bc_plan": "Plus",
         "current_methods": ["Stripe", "PayPal Commerce Platform"],
         "weights": {
-            "conversion_uplift": 0.35,  # Primary lever: add-to-cart → purchase
+            "conversion_uplift": 0.30,  # Primary lever: add-to-cart → purchase
             "mobile_agentic":    0.25,  # 72% mobile means wallet + agent-readiness critical
-            "impl_complexity":   0.20,  # SMB — time to value matters
-            "b2c_fit":           0.10,
+            "b2c_fit":           0.15,  # Consumer checkout method alignment
+            "aov_fit":           0.10,  # Determines BNPL eligibility: Afterpay ($30–$500) vs Affirm ($100–$3k)
             "bc_native":         0.10,
+            "impl_complexity":   0.10,  # SMB — time to value matters
             "b2b_fit":           0.00,  # Not relevant
             "geo_coverage":      0.00,  # US only — not a differentiator
-            "aov_fit":           0.00,
         },
     },
     "b2b_software_enterprise": {
@@ -298,10 +298,10 @@ MERCHANT_PROFILES = {
         "bc_plan": "Enterprise",
         "current_methods": ["Stripe", "PayPal Commerce Platform"],
         "weights": {
-            "b2b_fit":           0.30,  # B2B payment behaviour dominates
-            "conversion_uplift": 0.25,  # Reducing friction in enterprise purchase flow
-            "aov_fit":           0.20,  # Must suit high-value transactions
-            "geo_coverage":      0.15,  # US + AU both active markets
+            "b2b_fit":           0.40,  # B2B payment behaviour dominates; procurement compatibility is binary
+            "aov_fit":           0.25,  # High-AOV enterprise: method must support $2,400+ transactions
+            "conversion_uplift": 0.15,  # Conversion lift is a B2C metric; B2B lift is compliance, not persuasion
+            "geo_coverage":      0.10,  # US + AU both active markets
             "bc_native":         0.05,
             "impl_complexity":   0.05,  # Enterprise can absorb implementation effort
             "mobile_agentic":    0.00,  # Desktop-dominant
@@ -319,14 +319,14 @@ MERCHANT_PROFILES = {
         "bc_plan": "Enterprise",
         "current_methods": ["Stripe", "PayPal Commerce Platform", "Afterpay / Clearpay"],
         "weights": {
-            "geo_coverage":      0.25,  # Multi-market reach is the hard constraint
+            "geo_coverage":      0.20,  # Multi-market reach is the hard constraint
             "conversion_uplift": 0.20,
-            "b2c_fit":           0.15,
-            "b2b_fit":           0.15,
+            "b2c_fit":           0.20,  # 65% B2C volume justifies equal weight with geo
             "mobile_agentic":    0.15,  # 55% mobile + Commerce's agentic direction
+            "b2b_fit":           0.10,  # 35% B2B volume — material but secondary
             "aov_fit":           0.05,
             "bc_native":         0.05,
-            "impl_complexity":   0.00,
+            "impl_complexity":   0.05,  # Enterprise can absorb; non-zero to reward easy wins
         },
     },
 }
